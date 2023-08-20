@@ -11,7 +11,7 @@ class UserContoller extends Controller
     public function user(Request $request)
     {
         $user = $request->user();
-        $user['role'] = 'admin';
+        $user->getRoleNames();
 
         return $user;
     }

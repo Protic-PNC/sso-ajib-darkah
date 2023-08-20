@@ -1,3 +1,46 @@
+## **Doc Install**
+```bash
+php artisan migrate
+php artisan db:seed
+```
+## **Passport install**
+```bash
+php artisan passport:install
+php artisan passport:keys
+```
+## **Client Install**
+```bash
+php artisan passport:client
+
+Which user ID should the client be assigned to? (Optional):
+ > 1
+
+What should we name the client?:
+ > Client 1
+
+Where should we redirect the request after authorization? [http://sso-server.local:8080/auth/callback]:
+ > http://sso-client.local:8080/callback
+
+```
+
+## Save Client Keys
+New client created successfully.
+Here is your new client secret. This is the only time it will be shown so don't lose it!
+
+```bash
+Client ID: 99efe278-a315-4b58-a5ac-d0fe502f75cc
+Client secret: 5vSr9co71vyx0Y7kd4MucKr4DkxeYD4bTj4EKrKw
+```
+
+## Client APP .ENV
+```bash
+SERVER_URL=http://sso-server.local:8080
+CLIENT_ID="99efe278-a315-4b58-a5ac-d0fe502f75cc"
+CLIENT_SECRET="5vSr9co71vyx0Y7kd4MucKr4DkxeYD4bTj4EKrKw"
+```
+
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
