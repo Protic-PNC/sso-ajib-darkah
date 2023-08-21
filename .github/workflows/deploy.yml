@@ -1,0 +1,97 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.repository_owner == 'Protic-PNC'
+    env:
+      php_version: 8.1
+      php_extensions: gd
+      ASSETS_ARCHIVE: assets.zip
+      VENDOR_ARCHIVE: vendor.zip
+    steps:
+      - name: Requirements
+        run: sudo apt-get update -y && sudo apt-get install ssh rsync -y
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          name: id_rsa
+          known_hosts: ${{ secrets.SSH_HOST }}
+          if_key_exists: replace
+      - name: SSH Keyscan
+        run: ssh-keyscan -H -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup php extensions cache
+        id: phpextcache
+        uses: shivammathur/cache-extensions@v1
+        with:
+          php-version: ${{ env.php_version }}
+          extensions: ${{ env.php_extensions }}
+          key: php-ext-v1
+      - name: Cache php extensions
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.phpextcache.outputs.dir }}
+          key: ${{ steps.phpextcache.outputs.key }}
+          restore-keys: ${{ steps.phpextcache.outputs.key }}
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.php_version }}
+          extensions: ${{ env.php_extensions }}
+      - name: Get Composer cache dir
+        id: composer-cache
+        run: |
+          echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+      - uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+      - name: Install composer deps
+        run: composer install --no-interaction --prefer-dist
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+          cache: 'npm'
+      - name: Install npm deps
+        run: npm ci --include=dev
+      - name: Build static assets
+        run: npm run build
+      - name: Archive composer deps
+        run: zip -qr ${{ env.VENDOR_ARCHIVE }} vendor
+      - name: Archive static build assets
+        run: zip -qr ${{ env.ASSETS_ARCHIVE }} public/build
+      - name: Copy files
+        run:
+          rsync
+            -e "ssh -i ~/.ssh/id_rsa -p ${{ secrets.SSH_PORT }}"
+            -a ./${{ env.VENDOR_ARCHIVE }} ./${{ env.ASSETS_ARCHIVE }}
+            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.SSH_WORKDIR }}
+      - name: Pull latest
+        run:
+          ssh
+            -i ~/.ssh/id_rsa
+            -p ${{ secrets.SSH_PORT }}
+            -t ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
+            "cd ${{ secrets.SSH_WORKDIR }} &&
+            GIT_SSH_COMMAND='ssh -i ~/.ssh/id_rsa_ajib -o IdentitiesOnly=yes' git pull"
+      - name: Start deploy changes
+        run:
+          ssh
+            -i ~/.ssh/id_rsa
+            -p ${{ secrets.SSH_PORT }}
+            -t ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
+            "cd ${{ secrets.SSH_WORKDIR }} &&
+              ./scripts/deploy.sh
+              ${{ env.VENDOR_ARCHIVE }} ${{ env.ASSETS_ARCHIVE }}"
