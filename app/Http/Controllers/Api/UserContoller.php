@@ -17,15 +17,12 @@ class UserContoller extends Controller
         return $user;
     }
 
-    public function logout(Request $request)
+    public function authLogout(Request $request)
     {
-        $user = $request->user();
-        $accessToken = $user->token();
+        $user = $request->user()->token();
+        $user->revoke();
 
-        // DB::table('oauth_refresh_tokens')->where('access_token_id', $accessToken->id)->delete();
-        // $accessToken->delete();
-
-        // return response()->json(['message' => 'You have been successfully logged out.'], 200);
+        return response()->json(['message' => 'You have been successfully logged out.'], 200);
     }
 
     public function user(Request $request)
