@@ -1,4 +1,4 @@
-@section('title', 'Sign in to your account')
+@section('title', 'Masuk ke akun Anda')
 
 <div>
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
@@ -7,7 +7,7 @@
         </a>
 
         <h2 class="mt-6 text-3xl font-extrabold text-center text-gray-900 leading-9">
-            Sign in to your account
+            Masuk ke akun Anda
         </h2>
         @if (Route::has('register'))
             <p class="mt-2 text-sm text-center text-gray-600 leading-5 max-w">
@@ -68,7 +68,7 @@
                 <div class="mt-6">
                     <span class="block w-full rounded-md shadow-sm">
                         <button type="submit" class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:ring-indigo active:bg-indigo-700 transition duration-150 ease-in-out">
-                            Sign in
+                            Masuk
                         </button>
                     </span>
                 </div>
