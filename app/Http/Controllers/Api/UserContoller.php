@@ -33,7 +33,7 @@ class UserContoller extends Controller
             }else{
                 $user = User::with('roles')->get();
             }
-            
+
             return response()->json([
                 'message' => 'success',
                 'data' => $user,
