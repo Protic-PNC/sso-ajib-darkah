@@ -39,6 +39,18 @@ CLIENT_ID="99efe278-a315-4b58-a5ac-d0fe502f75cc"
 CLIENT_SECRET="5vSr9co71vyx0Y7kd4MucKr4DkxeYD4bTj4EKrKw"
 ```
 
+## Logout from client & server
+```bash
+Auth::logout();
+
+$query = http_build_query([
+    'client_id' => env('CLIENT_ID'),
+    'redirect_uri' => env('APP_URL') . '/login',
+]);
+
+return redirect(env('SERVER_URL') . '/oauth/logout?'.$query);
+```
+
 
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
