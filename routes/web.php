@@ -11,6 +11,11 @@ use App\Http\Livewire\Auth\Passwords\Reset;
 use App\Http\Livewire\Auth\Passwords\Confirm;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\EmailVerificationController;
+use App\Http\Livewire\Branch;
+use App\Http\Livewire\Category;
+use App\Http\Livewire\ListPermissions;
+use App\Http\Livewire\ListRoles;
+use App\Http\Livewire\ListUsers;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,5 +62,11 @@ Route::middleware('auth')->group(function () {
 
 Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('/', Dashboard::class)->name('home');
+    Route::get('/category', Category::class)->name('category');
     Route::get('/product', Product::class)->name('product');
+    Route::get('/cabang', Branch::class)->name('cabang');
+
+    Route::get('/users', ListUsers::class)->name('users');
+    Route::get('/roles', ListRoles::class)->name('roles');
+    Route::get('/permissions', ListPermissions::class)->name('permissions');
 });

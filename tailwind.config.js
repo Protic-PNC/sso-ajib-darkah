@@ -9,7 +9,7 @@ module.exports = {
             },
 
             colors: {
-                primary: colors.indigo,
+                primary: colors.blue,
                 secondary: colors.gray,
                 positive: colors.emerald,
                 negative: colors.red,

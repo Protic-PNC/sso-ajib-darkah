@@ -3,12 +3,11 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use App\Models\Category;
+use App\Models\Category as Categories;
 use Livewire\WithPagination;
 use WireUi\Traits\Actions;
-use App\Models\Product as ModelsProduct;
 
-class Product extends Component
+class Category extends Component
 {
     use Actions;
     use WithPagination;
@@ -20,42 +19,30 @@ class Product extends Component
     public $openModal = false;
 
     public $name;
-    public $description;
-    public $price;
-    public $category;
-    public $productId;
+
+    public $categoryId;
 
     public function edit($id)
     {
         $this->openModal = true;
 
-        $product = ModelsProduct::find($id);
+        $category = Categories::find($id);
 
-        $this->productId = $product->id;
-        $this->name = $product->name;
-        $this->description = $product->description;
-        $this->price = $product->harga;
-        $this->category = $product->category_id;
+        $this->categoryId = $category->id;
+        $this->name = $category->name;
     }
 
     public function save($id)
     {
-
         $this->validate([
-            'name' => 'required',
-            'description' => 'required',
-            'price' => 'required',
-            'category' => 'required'
+            'name' => 'required'
         ]);
 
-        $product = ModelsProduct::find($id);
+        $category = Categories::find($id);
 
-        if ($product) {
-            $product->update([
-                'name' => $this->name,
-                'description' => $this->description,
-                'harga' => $this->price,
-                'category_id' => $this->category
+        if ($category) {
+            $category->update([
+                'name' => $this->name
             ]);
 
             $this->notification()->success(
@@ -63,7 +50,8 @@ class Product extends Component
                 $description = 'Data berhasil diubah'
             );
 
-            $this->reset('name', 'description', 'price', 'category');
+            $this->reset('name');
+            $this->emit('refresh');
             $this->openModal = false;
         }
     }
@@ -81,7 +69,7 @@ class Product extends Component
 
     public function delete($id)
     {
-        $category = ModelsProduct::find($id);
+        $category = Categories::find($id);
 
         if ($category) {
             $category->delete();
@@ -92,14 +80,12 @@ class Product extends Component
         }
     }
 
-
     public function render()
     {
-        $products = ModelsProduct::query()->orderBy('id', 'DESC');
-        $categories = Category::all();
-        return view('livewire.product', [
-            'products' => $products->paginate(10),
-            'categories' => $categories,
+        $categories = Categories::query()->orderBy('id', 'DESC');
+
+        return view('livewire.category', [
+            'categories' => $categories->paginate(10),
         ])->extends('layouts.app');
     }
 }
