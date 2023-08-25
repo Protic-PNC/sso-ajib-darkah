@@ -11,7 +11,7 @@
                 thousands="."
                 decimal=","
                 precision="4"
-                wire:model="price"
+                wire:model.defer="price"
             />
 
             <div class="col-span-1 sm:col-span-2 grid gap-y-4">
