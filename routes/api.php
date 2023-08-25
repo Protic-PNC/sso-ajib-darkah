@@ -1,11 +1,14 @@
 <?php
 
-use App\Http\Controllers\Api\UserContoller;
-use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Api\BranchController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\UserContoller;
+use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,5 +32,9 @@ Route::prefix('auth')->middleware(['auth:api'])->group(function () {
 Route::middleware(['auth:api'])->group(function () {
     Route::get('/user', [UserContoller::class, 'user']);
     Route::get('/user/{id}', [UserContoller::class, 'user']);
+
+    Route::get('/category', [CategoryController::class, 'index']);
+    Route::get('/product', [ProductController::class, 'index']);
+    Route::get('/branch', [BranchController::class, 'index']);
 });
 
