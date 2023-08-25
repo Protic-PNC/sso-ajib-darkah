@@ -21,7 +21,12 @@ class AddBranch extends Component
     public function mount()
     {
         $lastBranch = Branch::latest()->first();
-        $this->code = static::generateUniqueCode($lastBranch->code, 'CA', 4);
+        if ($lastBranch){
+            $lastBranch->code;
+        }else{
+            $lastBranch = 'CA0000';
+        }
+        $this->code = static::generateUniqueCode($lastBranch, 'CA', 4);
     }
 
     public function openModal()
