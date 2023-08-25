@@ -22,11 +22,10 @@ class AddBranch extends Component
     {
         $lastBranch = Branch::latest()->first();
         if ($lastBranch){
-            $lastBranch->code;
+            $this->code = static::generateUniqueCode($lastBranch->code, 'CA', 4);
         }else{
-            $lastBranch = 'CA0000';
+            $this->code = 'CA0000';
         }
-        $this->code = static::generateUniqueCode($lastBranch, 'CA', 4);
     }
 
     public function openModal()
@@ -60,7 +59,7 @@ class AddBranch extends Component
                 $description = 'Data berhasil dibuat'
             );
 
-            $this->reset('code', 'name');
+            $this->reset('code', 'name', 'productSelected');
             $this->mount();
             $this->emit('refresh');
             $this->openModal = false;
