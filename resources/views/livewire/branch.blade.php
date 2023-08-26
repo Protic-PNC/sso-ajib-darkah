@@ -37,7 +37,7 @@
                     <th scope="col" class="px-6 py-3">
                          Produk
                     </th>
-                    <th scope="col" class="px-6 py-3">
+                    <th scope="col" class="px-6 py-3 text-end">
                         Action
                     </th>
                 </tr>
@@ -55,9 +55,11 @@
                     <td class="px-6 py-4">
                         {{ implode(', ', collect($branch->products()->pluck('name'))->toArray())}}
                     </td>
-                    <td class="px-6 py-4">
-                        <x-button icon="pencil" primary label="" wire:click="edit('{{ $branch->id }}')"/>
-                        <x-button icon="trash" negative  label="" wire:click="confirmDelete('{{ $branch->id }}')"/>
+                    <td class="px-6 py-4 flex flex-grow justify-end gap-1">
+
+                        <x-button icon="pencil" positive label="Stock" href="{{ route('cabang.stock', ['code' => Str::lower($branch->code)]) }}"/>
+                        <x-button icon="pencil" primary class="pb-2 pt-2.5" label="" wire:click="edit('{{ $branch->id }}')"/>
+                        <x-button icon="trash" negative class="pb-2 pt-2.5"  label="" wire:click="confirmDelete('{{ $branch->id }}')"/>
                     </td>
                 </tr>
                 @empty

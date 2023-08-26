@@ -12,6 +12,11 @@ class AddBranch extends Component
 {
     use Actions;
     use GeneratesUniqueCode;
+
+    protected $listeners = [
+        'mount' => 'mount'
+    ];
+
     public $openModal = false;
     public $code;
     public $name;

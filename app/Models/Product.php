@@ -20,4 +20,14 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function branches()
+    {
+        return $this->belongsToMany(Branch::class);
+    }
+
+    public function stocks()
+    {
+        return $this->hasMany(Stock::class);
+    }
 }

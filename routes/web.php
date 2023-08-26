@@ -12,6 +12,7 @@ use App\Http\Livewire\Auth\Passwords\Confirm;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Livewire\Branch;
+use App\Http\Livewire\BranchStock;
 use App\Http\Livewire\Category;
 use App\Http\Livewire\ListPermissions;
 use App\Http\Livewire\ListRoles;
@@ -65,6 +66,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('/category', Category::class)->name('category');
     Route::get('/product', Product::class)->name('product');
     Route::get('/cabang', Branch::class)->name('cabang');
+    Route::get('/cabang/{code}', BranchStock::class)->name('cabang.stock');
 
     Route::get('/users', ListUsers::class)->name('users');
     Route::get('/roles', ListRoles::class)->name('roles');

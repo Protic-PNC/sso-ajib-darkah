@@ -7,6 +7,7 @@ use Livewire\Component;
 use WireUi\Traits\Actions;
 use Livewire\WithPagination;
 use App\Models\Branch as ModelsBranch;
+use App\Models\Stock;
 
 class Branch extends Component
 {
@@ -53,6 +54,8 @@ class Branch extends Component
 
         $branch = ModelsBranch::find($id);
 
+        // dd($this->productSelected);
+
         $branch->products()->detach();
         foreach ($this->productSelected as $product) {
             $branch->products()->attach($product);
@@ -95,6 +98,8 @@ class Branch extends Component
                 $title = 'Berhasil',
                 $description = 'Data berhasil dihapus'
             );
+
+            $this->emit('mount');
         }
     }
 
