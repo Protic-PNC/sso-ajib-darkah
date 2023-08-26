@@ -11,10 +11,17 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         try{
-            $products = Product::with('category')->get();
+            if (isset($request->branch)) {
+                $products = Product::with(['category', 'stocks' => function($query) use ($request){
+                    $query->where('branch_id', $request->branch);
+                }])->get();
+                
+            }else {
+                $products = Product::with('category')->get();
+            }
 
             return response()->json([
                 'status' => 'success',

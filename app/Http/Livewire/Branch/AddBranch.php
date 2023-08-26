@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Branch;
 
+use App\Models\Stock;
 use App\Models\Branch;
 use App\Models\Product;
 use Livewire\Component;
@@ -56,6 +57,12 @@ class AddBranch extends Component
 
         foreach ($this->productSelected as $product) {
             $branch->products()->attach($product);
+
+            $stock = Stock::firstOrCreate([
+                'branch_id' => $branch->id,
+                'product_id' => $product,
+                'quantity' => 1
+            ]);
         }
 
         if ($branch) {

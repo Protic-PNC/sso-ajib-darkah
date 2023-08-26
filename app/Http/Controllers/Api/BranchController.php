@@ -15,10 +15,28 @@ class BranchController extends Controller
     {
         try{
             $branches = Branch::with('products')->get();
+            $dataBranches = [];
+
+            foreach ($branches as $key => $branch) {
+                $dataBranches[] = [
+                    'id' => $branch->id,
+                    'code' => $branch->code,
+                    'name' => $branch->name,
+                    'products' => $branch->products->map(function($product) use ($branch){
+                        return [
+                            'id' => $product->id,
+                            'name' => $product->name,
+                            'category' => $product->category->name,
+                            'stocks' => $product->stocks->where('branch_id', $branch->id)->first()->quantity
+                        ];
+                    })
+                ];
+            }
+
 
             return response()->json([
                 'status' => 'success',
-                'data' => $branches
+                'data' => $dataBranches
             ], 200);
         }catch(\Exception $e){
             return response()->json([

@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\UserContoller;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\StockController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,5 +37,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('/category', [CategoryController::class, 'index']);
     Route::get('/product', [ProductController::class, 'index']);
     Route::get('/branch', [BranchController::class, 'index']);
+    Route::get('/stock', [StockController::class, 'index']);
+    Route::put('/stock', [StockController::class, 'update']);
 });
 
