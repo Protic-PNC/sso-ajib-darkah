@@ -61,7 +61,7 @@ class AddBranch extends Component
             $stock = Stock::firstOrCreate([
                 'branch_id' => $branch->id,
                 'product_id' => $product,
-                'quantity' => 1
+                'quantity' => 0
             ]);
         }
 
