@@ -54,12 +54,7 @@ class Branch extends Component
 
         $branch = ModelsBranch::find($id);
 
-        // dd($this->productSelected);
-
-        $branch->products()->detach();
-        foreach ($this->productSelected as $product) {
-            $branch->products()->attach($product);
-        }
+        $branch->products()->sync($this->productSelected);
 
         if ($branch) {
             $branch->update([

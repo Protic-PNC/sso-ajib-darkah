@@ -1,6 +1,6 @@
 <div>
-    <div>
-
+    <div class="mb-6">
+        <livewire:user.add-user />
     </div>
 
     <div>
@@ -36,16 +36,19 @@
                             </div>
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Product name
+                            Nama
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Color
+                            Email
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Category
+                            User Cabang
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Price
+                            User Role
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            User Permission
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Action
@@ -53,6 +56,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @forelse ($users as $user)
                     <tr
                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <td class="w-4 p-4">
@@ -63,148 +67,89 @@
                             </div>
                         </td>
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            Apple MacBook Pro 17"
+                            {{ $user->name }}
                         </th>
                         <td class="px-6 py-4">
-                            Silver
+                            {{ $user->email }}
                         </td>
                         <td class="px-6 py-4">
-                            Laptop
+                            {{ $user->branches()->pluck('name')->implode(', ') }}
                         </td>
                         <td class="px-6 py-4">
-                            $2999
+                            {{ implode(', ', collect($user->getRoleNames())->toArray())}}
                         </td>
                         <td class="px-6 py-4">
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                            {{ implode(', ', collect($user->getPermissionNames())->toArray()) }}
+                        </td>
+                        <td class="px-6 py-4">
+                            <x-button icon="pencil" primary label="" wire:click="edit('{{ $user->id }}')"/>
+                            <x-button icon="trash" negative  label="" wire:click="confirmDelete('{{ $user->id }}')"/>
                         </td>
                     </tr>
-                    <tr
-                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <td class="w-4 p-4">
-                            <div class="flex items-center">
-                                <input id="checkbox-table-search-2" type="checkbox"
-                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                <label for="checkbox-table-search-2" class="sr-only">checkbox</label>
-                            </div>
-                        </td>
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            Microsoft Surface Pro
-                        </th>
-                        <td class="px-6 py-4">
-                            White
-                        </td>
-                        <td class="px-6 py-4">
-                            Laptop PC
-                        </td>
-                        <td class="px-6 py-4">
-                            $1999
-                        </td>
-                        <td class="px-6 py-4">
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                    @empty
+                    <tr>
+                        <td colspan="5" class="px-6 py-4 text-center">
+                            No Data Found
                         </td>
                     </tr>
-                    <tr
-                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <td class="w-4 p-4">
-                            <div class="flex items-center">
-                                <input id="checkbox-table-search-3" type="checkbox"
-                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                <label for="checkbox-table-search-3" class="sr-only">checkbox</label>
-                            </div>
-                        </td>
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            Magic Mouse 2
-                        </th>
-                        <td class="px-6 py-4">
-                            Black
-                        </td>
-                        <td class="px-6 py-4">
-                            Accessories
-                        </td>
-                        <td class="px-6 py-4">
-                            $99
-                        </td>
-                        <td class="px-6 py-4">
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                        </td>
-                    </tr>
-                    <tr
-                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <td class="w-4 p-4">
-                            <div class="flex items-center">
-                                <input id="checkbox-table-3" type="checkbox"
-                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                <label for="checkbox-table-3" class="sr-only">checkbox</label>
-                            </div>
-                        </td>
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            Apple Watch
-                        </th>
-                        <td class="px-6 py-4">
-                            Silver
-                        </td>
-                        <td class="px-6 py-4">
-                            Accessories
-                        </td>
-                        <td class="px-6 py-4">
-                            $179
-                        </td>
-                        <td class="px-6 py-4">
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                        </td>
-                    </tr>
-                    <tr
-                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <td class="w-4 p-4">
-                            <div class="flex items-center">
-                                <input id="checkbox-table-3" type="checkbox"
-                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                <label for="checkbox-table-3" class="sr-only">checkbox</label>
-                            </div>
-                        </td>
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            iPad
-                        </th>
-                        <td class="px-6 py-4">
-                            Gold
-                        </td>
-                        <td class="px-6 py-4">
-                            Tablet
-                        </td>
-                        <td class="px-6 py-4">
-                            $699
-                        </td>
-                        <td class="px-6 py-4">
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                        </td>
-                    </tr>
-                    <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <td class="w-4 p-4">
-                            <div class="flex items-center">
-                                <input id="checkbox-table-3" type="checkbox"
-                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                <label for="checkbox-table-3" class="sr-only">checkbox</label>
-                            </div>
-                        </td>
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            Apple iMac 27"
-                        </th>
-                        <td class="px-6 py-4">
-                            Silver
-                        </td>
-                        <td class="px-6 py-4">
-                            PC Desktop
-                        </td>
-                        <td class="px-6 py-4">
-                            $3999
-                        </td>
-                        <td class="px-6 py-4">
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                        </td>
-                    </tr>
+                    @endforelse
+
                 </tbody>
             </table>
         </div>
 
+            {{ $users->links() }}
     </div>
+
+    <x-modal.card align="center" title="Tambah User" wire:model="openModal">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <x-input label="Nama" placeholder="" wire:model="name"/>
+            <x-input label="Email" placeholder="" wire:model="email"/>
+
+            <div class="col-span-1 sm:col-span-2 grid grid-cols-1 gap-y-3">
+
+                <x-inputs.password label="Password" placeholder="" wire:model="password" hint="kosongkan jika tidak ingin di ubah"/>
+
+                <x-select
+                    label="Pilih Cabang"
+                    placeholder="Cabang"
+                    multiselect
+                    :options="$branches"
+                    option-label="name"
+                    option-value="id"
+                    wire:model.defer="branchSelected"
+                />
+
+                <x-select
+                    label="Pilih Role"
+                    placeholder="Role"
+                    multiselect
+                    :options="$roles"
+                    option-label="name"
+                    option-value="id"
+                    wire:model.defer="roleSelected"
+                />
+
+                <x-select
+                    label="Pilih Permission"
+                    placeholder="Permission"
+                    multiselect
+                    :options="$permissions"
+                    option-label="name"
+                    option-value="id"
+                    wire:model.defer="permissionSelected"
+                />
+            </div>
+
+        </div>
+
+        <x-slot name="footer">
+            <div class="flex justify-end gap-x-4">
+                <div class="flex">
+                    <x-button flat label="Cancel" x-on:click="close" />
+                    <x-button primary label="Save" wire:click="save('{{ $userId }}')" />
+                </div>
+            </div>
+        </x-slot>
+    </x-modal.card>
 </div>

@@ -53,7 +53,7 @@
                         {{ $branch->name }}
                     </th>
                     <td class="px-6 py-4">
-                        {{ implode(', ', collect($branch->products()->pluck('name'))->toArray())}}
+                        {{ $branch->products()->pluck('name')->implode(', ') }}
                     </td>
                     <td class="px-6 py-4 flex flex-grow justify-end gap-1">
 

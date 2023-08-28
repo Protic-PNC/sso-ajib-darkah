@@ -44,4 +44,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * Get the branches for the user.
+     */
+    public function branches()
+    {
+        return $this->belongsToMany(Branch::class);
+    }
 }
