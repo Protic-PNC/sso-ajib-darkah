@@ -14,11 +14,48 @@ class BranchController extends Controller
     public function index(Request $request)
     {
         try{
-            if ($request->id) {
-                $branches = Branch::with('products')->where('id', $request->id)->get();
-            }else {
-                $branches = Branch::with('products')->get();
-            }
+            // if ($request->id) {
+                // $branches = Branch::with('products')->where('id', $request->id)->get();
+            // }else {
+                // $branches = Branch::with('products')->get();
+            // }
+            // $dataBranches = [];
+
+            // foreach ($branches as $key => $branch) {
+            //     $dataBranches[] = [
+            //         'id' => $branch->id,
+            //         'code' => $branch->code,
+            //         'name' => $branch->name,
+            //         'products' => $branch->products->map(function($product) use ($branch){
+            //             return [
+            //                 'id' => $product->id,
+            //                 'name' => $product->name,
+            //                 'category' => $product->category->name,
+            //                 'stocks' => $product->stocks->where('branch_id', $branch->id)->first()->quantity
+            //             ];
+            //         })
+            //     ];
+            // }
+
+
+            $branches = Branch::get();
+
+            return response()->json([
+                'status' => 'success',
+                'data' => $branches
+            ], 200);
+        }catch(\Exception $e){
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function branchById(Request $request)
+    {
+        try{
+            $branches = Branch::with('products')->where('id', $request->id)->get();
             $dataBranches = [];
 
             foreach ($branches as $key => $branch) {
