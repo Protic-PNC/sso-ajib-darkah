@@ -37,6 +37,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('/category', [CategoryController::class, 'index']);
     Route::get('/product', [ProductController::class, 'index']);
     Route::get('/branch', [BranchController::class, 'index']);
+    Route::get('/branch/{id}', [BranchController::class, 'index']);
     Route::get('/stock', [StockController::class, 'index']);
     Route::put('/stock', [StockController::class, 'update']);
 });

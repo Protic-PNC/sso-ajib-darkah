@@ -11,10 +11,14 @@ class BranchController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         try{
-            $branches = Branch::with('products')->get();
+            if ($request->id) {
+                $branches = Branch::with('products')->where('id', $request->id)->get();
+            }else {
+                $branches = Branch::with('products')->get();
+            }
             $dataBranches = [];
 
             foreach ($branches as $key => $branch) {
