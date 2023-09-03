@@ -1,8 +1,8 @@
-@section('title', 'Category')
+@section('title', 'Client Setting')
 
 <div>
     <div class="mb-6">
-        <livewire:category.add-category />
+        <livewire:client-setting.new-client />
     </div>
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg border bg-white">
@@ -28,65 +28,75 @@
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                    <th scope="col" class="px-6 py-3 w-10">
+                    <th scope="col" class="px-3 py-3 w-10">
                         #
                     </th>
-                    <th scope="col" class="px-6 py-3">
-                        Nama Categori
+                    <th scope="col" class="px-3 py-3">
+                        Client ID
                     </th>
-                    <th scope="col" class="px-6 py-3">
-                         Created At
+                    <th scope="col" class="px-3 py-3">
+                        Name
                     </th>
-                    <th scope="col" class="px-6 py-3">
-                        Updated At
+                    <th scope="col" class="px-3 py-3">
+                        Callback URL
                     </th>
-                    <th scope="col" class="px-6 py-3">
+                    <th scope="col" class="px-3 py-3">
+                        Status
+                    </th>
+                    <th scope="col" class="px-3 py-3">
                         Action
                     </th>
                 </tr>
             </thead>
             <tbody>
-                @forelse ($categories as $category)
+                @forelse ($clients as $client)
                 <tr
                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <td class="px-3 py-3">
                         {{ $loop->iteration }}
-                    </th>
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {{ $category->name }}
-                    </th>
-                    <td class="px-6 py-4">
-                        {{ $category->created_at }}
                     </td>
-                    <td class="px-6 py-4">
-                        {{ $category->updated_at }}
+                    <td class="px-3 py-3">
+                        {{ $client->id }}
                     </td>
-                    <td class="px-6 py-4">
-                        <x-button icon="pencil" primary label="" wire:click="edit('{{ $category->id }}')"/>
-                        <x-button icon="trash" negative  label="" wire:click="confirmDelete('{{ $category->id }}')"/>
+                    <td class="px-3 py-3">
+                        {{ $client->name }}
+                    </td>
+                    <td class="px-3 py-3">
+                        {{ $client->redirect }}
+                    </td>
+                    <td class="px-3 py-3">
+                        @if ($client->revoked)
+                            Revoked
+                        @else
+                            Active
+                        @endif
+                    </td>
+                    <td class="px-3 py-3">
+                        <x-button icon="pencil" primary label="" wire:click="edit('{{ $client->id }}')"/>
+                        <x-button icon="trash" negative  label="" wire:click="confirmDelete('{{ $client->id }}')"/>
                     </td>
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="4" class="px-6 py-4 text-center">
+                    <td colspan="5" class="px-6 py-4 text-center">
                         No Data Found
                     </td>
                 </tr>
                 @endforelse
-
             </tbody>
         </table>
 
         <div class="px-5 py-7">
-        {{ $categories->links() }}
+            {{ $clients->links() }}
         </div>
     </div>
 
-    <x-modal.card align="center" title="Edit category" wire:model="openModal">
+    <x-modal.card align="center" title="Edit Client" wire:model="openModal">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
-            <div class="col-span-1 sm:col-span-2">
-                <x-input label="Nama" placeholder="cth Galon" wire:model="name"/>
+            <div class="col-span-1 sm:col-span-2 grid gap-y-3">
+                <x-input label="Nama Client" placeholder="" wire:model="name"/>
+                <x-input label="Callback URL" placeholder="" wire:model="callback" hint="cth: http://sso-client.dev/auth/callback"/>
             </div>
 
         </div>
@@ -95,7 +105,7 @@
             <div class="flex justify-end gap-x-4">
                 <div class="flex">
                     <x-button flat label="Cancel" x-on:click="close" />
-                    <x-button primary label="Save" wire:click="save('{{ $categoryId }}')" />
+                    <x-button primary label="Save" wire:click="save('{{ $clientId }}')" />
                 </div>
             </div>
         </x-slot>

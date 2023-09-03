@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\ClientSetting;
 use App\Http\Livewire\Product;
 use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\Auth\Login;
@@ -71,4 +72,5 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('/users', ListUsers::class)->name('users');
     Route::get('/roles', ListRoles::class)->name('roles');
     Route::get('/permissions', ListPermissions::class)->name('permissions');
+    Route::get('/client-setting', ClientSetting::class)->name('client.setting');
 });

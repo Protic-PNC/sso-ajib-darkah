@@ -98,7 +98,9 @@
             </table>
         </div>
 
+        <div class="px-5 py-7">
             {{ $users->links() }}
+        </div>
     </div>
 
     <x-modal.card align="center" title="Tambah User" wire:model="openModal">
