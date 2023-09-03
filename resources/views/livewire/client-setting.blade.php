@@ -97,6 +97,8 @@
             <div class="col-span-1 sm:col-span-2 grid gap-y-3">
                 <x-input label="Nama Client" placeholder="" wire:model="name"/>
                 <x-input label="Callback URL" placeholder="" wire:model="callback" hint="cth: http://sso-client.dev/auth/callback"/>
+
+                <x-toggle label="Revoke Token" md wire:model="revokeToken" />
             </div>
 
         </div>

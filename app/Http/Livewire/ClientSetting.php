@@ -19,6 +19,7 @@ class ClientSetting extends Component
     public $name;
     public $callback;
     public $clientId;
+    public $revokeToken;
 
     public function edit($id)
     {
@@ -28,6 +29,7 @@ class ClientSetting extends Component
         $this->clientId = $client->id;
         $this->name = $client->name;
         $this->callback = $client->redirect;
+        $this->revokeToken = $client->revoked;
     }
 
     public function save($id)
@@ -51,6 +53,25 @@ class ClientSetting extends Component
             );
 
             $this->reset('name', 'callback');
+            $this->emit('refresh');
+            $this->openModal = false;
+        }
+    }
+
+    public function updatedRevokeToken()
+    {
+        $client = Client::find($this->clientId);
+
+        if ($client) {
+            $client->update([
+                'revoked' => $this->revokeToken,
+            ]);
+
+            $this->notification()->success(
+                $title = 'Berhasil',
+                $description = 'Data berhasil diubah'
+            );
+
             $this->emit('refresh');
             $this->openModal = false;
         }
