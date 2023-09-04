@@ -26,10 +26,10 @@ class ListUsers extends Component
     public $password;
     public $branches;
     public $roles;
-    public $permissions;
+    // public $permissions;
     public $branchSelected;
     public $roleSelected;
-    public $permissionSelected;
+    // public $permissionSelected;
 
     public $openModal = false;
 
@@ -40,12 +40,12 @@ class ListUsers extends Component
         $this->userId = $user->id;
         $this->name = $user->name;
         $this->email = $user->email;
-        $this->branches = Branch::all();
+        $this->branches = Branch::get();
         $this->branchSelected = $user->branches->pluck('id')->toArray();
-        $this->roles = Role::all();
+        $this->roles = Role::get();
         $this->roleSelected = $user->roles->pluck('id')->toArray();
-        $this->permissions = Permission::all();
-        $this->permissionSelected = $user->permissions->pluck('id')->toArray();
+        // $this->permissions = Permission::get();
+        // $this->permissionSelected = $user->permissions->pluck('id')->toArray();
 
         $this->openModal = true;
     }
@@ -75,7 +75,7 @@ class ListUsers extends Component
 
         $user->branches()->sync($this->branchSelected);
         $user->syncRoles($this->roleSelected);
-        $user->syncPermissions($this->permissionSelected);
+        // $user->syncPermissions($this->permissionSelected);
 
         $this->notification()->success(
             $title = 'Berhasil',

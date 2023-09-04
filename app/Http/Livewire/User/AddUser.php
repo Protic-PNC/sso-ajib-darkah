@@ -19,18 +19,18 @@ class AddUser extends Component
     public $password = 12345678;
     public $branches;
     public $roles;
-    public $permissions;
+    // public $permissions;
     public $branchSelected;
     public $roleSelected;
-    public $permissionSelected;
+    // public $permissionSelected;
 
     public function openModal()
     {
         $this->openModal = true;
 
-        $this->branches = Branch::all();
-        $this->roles = Role::all();
-        $this->permissions = Permission::all();
+        $this->branches = Branch::get();
+        $this->roles = Role::get();
+        // $this->permissions = Permission::all();
     }
 
     public function save()
@@ -58,11 +58,11 @@ class AddUser extends Component
                 $user->assignRole($role);
             }
 
-            foreach ($this->permissionSelected as $permission) {
-                $user->givePermissionTo($permission);
-            }
+            // foreach ($this->permissionSelected as $permission) {
+            //     $user->givePermissionTo($permission);
+            // }
 
-            $this->reset(['name', 'email', 'branchSelected', 'roleSelected', 'permissionSelected']);
+            $this->reset(['name', 'email', 'branchSelected', 'roleSelected']);
             $this->emit('refresh');
             $this->openModal = false;
 

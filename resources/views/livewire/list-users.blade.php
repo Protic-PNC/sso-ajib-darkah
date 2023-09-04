@@ -48,9 +48,6 @@
                             User Role
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            User Permission
-                        </th>
-                        <th scope="col" class="px-6 py-3">
                             Action
                         </th>
                     </tr>
@@ -77,9 +74,6 @@
                         </td>
                         <td class="px-6 py-4">
                             {{ implode(', ', collect($user->getRoleNames())->toArray())}}
-                        </td>
-                        <td class="px-6 py-4">
-                            {{ implode(', ', collect($user->getPermissionNames())->toArray()) }}
                         </td>
                         <td class="px-6 py-4">
                             <x-button icon="pencil" primary label="" wire:click="edit('{{ $user->id }}')"/>
@@ -132,7 +126,7 @@
                     wire:model.defer="roleSelected"
                 />
 
-                <x-select
+                {{-- <x-select
                     label="Pilih Permission"
                     placeholder="Permission"
                     multiselect
@@ -140,7 +134,7 @@
                     option-label="name"
                     option-value="id"
                     wire:model.defer="permissionSelected"
-                />
+                /> --}}
             </div>
 
         </div>

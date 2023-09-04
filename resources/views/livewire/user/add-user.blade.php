@@ -30,7 +30,7 @@
                     wire:model.defer="roleSelected"
                 />
 
-                <x-select
+                {{-- <x-select
                     label="Pilih Permission"
                     placeholder="Permission"
                     multiselect
@@ -38,7 +38,7 @@
                     option-label="name"
                     option-value="id"
                     wire:model.defer="permissionSelected"
-                />
+                /> --}}
             </div>
 
         </div>

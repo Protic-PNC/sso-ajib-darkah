@@ -59,15 +59,17 @@
                 <li>
                   <a href="{{ route('users') }}" class="flex items-center p-2 text-base text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-blue-500 hover:text-white dark:text-gray-200 dark:hover:bg-gray-700 @if( request()->routeIs('users') ) bg-blue-500 text-white @endif">Users</a>
                 </li>
+                @role('Super Admin')
                 <li>
                   <a href="{{ route('roles') }}" class="flex items-center p-2 text-base text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-blue-500 hover:text-white dark:text-gray-200 dark:hover:bg-gray-700 @if( request()->routeIs('roles') ) bg-blue-500 text-white @endif">Roles</a>
                 </li>
-                <li>
+                {{-- <li>
                   <a href="{{ route('permissions') }}" class="flex items-center p-2 text-base text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-blue-500 hover:text-white dark:text-gray-200 dark:hover:bg-gray-700 @if( request()->routeIs('permissions') ) bg-blue-500 text-white @endif">Permissions</a>
-                </li>
+                </li> --}}
                 <li>
                   <a href="{{ route('client.setting') }}" class="flex items-center p-2 text-base text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-blue-500 hover:text-white dark:text-gray-200 dark:hover:bg-gray-700 @if( request()->routeIs('client.setting') ) bg-blue-500 text-white @endif">Client App</a>
                 </li>
+                @endrole
               </ul>
             </li>
             {{-- <li>
