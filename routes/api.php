@@ -30,7 +30,7 @@ Route::prefix('auth')->middleware(['auth:api'])->group(function () {
     Route::get('/logout', [UserContoller::class, 'authLogout']);
 });
 
-Route::middleware(['auth:api'])->group(function () {
+Route::middleware(['check.token'])->group(function () {
     Route::get('/user', [UserContoller::class, 'user']);
     Route::get('/user/{id}', [UserContoller::class, 'user']);
 
