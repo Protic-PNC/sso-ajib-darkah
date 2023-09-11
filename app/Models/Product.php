@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\ImageProduct;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
@@ -11,6 +12,7 @@ class Product extends Model
 
     protected $fillable=[
         'name',
+        'slug',
         'description',
         'harga',
         'category_id'
@@ -29,5 +31,10 @@ class Product extends Model
     public function stocks()
     {
         return $this->hasMany(Stock::class);
+    }
+
+    public function images()
+    {
+        return $this->hasMany(ImageProduct::class);
     }
 }
