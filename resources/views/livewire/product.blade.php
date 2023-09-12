@@ -56,7 +56,7 @@
                         {{ $loop->iteration }}
                     </td>
                     <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                        <img src="{{ $product->images->first()->image }}" class="w-16" alt="">
+                        <img src="{{ asset('storage/' . $product->images->first()->image) }}" class="w-16" alt="">
                     </td>
                     <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
                         {{ $product->name }}
