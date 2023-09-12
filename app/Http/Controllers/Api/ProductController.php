@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 
 class ProductController extends Controller
 {
@@ -15,13 +16,38 @@ class ProductController extends Controller
     {
         try{
             if (isset($request->branch)) {
-                $products = Product::with(['category', 'stocks' => function($query) use ($request){
-                    $query->where('branch_id', $request->branch);
-                }])->get();
-                
+                $products = Product::with('category', 'images', 'stocks')
+                            ->whereHas('branches', function ($query) use ($request) {
+                                $query->where('id', $request->branch);
+                            })->get();
+
+            }elseif(isset($request->id) || isset($request->slug)) {
+                $products = Product::with('category', 'images', 'stocks')->where('id', $request->id)->orWhere('slug', $request->slug)->get();
             }else {
-                $products = Product::with('category')->get();
+                $products = Product::with('category', 'images', 'stocks')->get();
             }
+
+            return response()->json([
+                'status' => 'success',
+                'data' => $products
+            ], 200);
+        }catch(\Exception $e){
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function byCategory(Request $request)
+    {
+        try{
+            $products = Product::with('category', 'images', 'stocks')
+                            ->whereHas('branches', function ($query) use ($request) {
+                                $query->where('id', $request->branch);
+                            })->WhereHas('category', function ($query) use ($request) {
+                                $query->where('slug', $request->slug);
+                            })->get();
 
             return response()->json([
                 'status' => 'success',

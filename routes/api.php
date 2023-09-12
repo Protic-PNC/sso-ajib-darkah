@@ -36,6 +36,8 @@ Route::middleware(['check.token'])->group(function () {
 
     Route::get('/category', [CategoryController::class, 'index']);
     Route::get('/product', [ProductController::class, 'index']);
+    Route::get('/product', [ProductController::class, 'index']);
+    Route::get('/product/category', [ProductController::class, 'byCategory']);
     Route::get('/branch', [BranchController::class, 'index']);
     Route::get('/branch/{id}', [BranchController::class, 'branchById']);
     Route::get('/stock', [StockController::class, 'index']);
