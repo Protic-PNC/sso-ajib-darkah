@@ -32,6 +32,9 @@
                         #
                     </th>
                     <th scope="col" class="px-6 py-3">
+                        Images
+                    </th>
+                    <th scope="col" class="px-6 py-3">
                         Nama Produk
                     </th>
                     <th scope="col" class="px-6 py-3">
@@ -51,6 +54,9 @@
                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                     <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
                         {{ $loop->iteration }}
+                    </td>
+                    <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                        <img src="{{ $product->images->first()->image }}" class="w-16" alt="">
                     </td>
                     <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
                         {{ $product->name }}
