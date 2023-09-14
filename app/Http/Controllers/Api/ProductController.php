@@ -16,15 +16,25 @@ class ProductController extends Controller
     {
         try{
             if (isset($request->branch)) {
-                $products = Product::with('category', 'images', 'stocks')
+                $products = Product::with('category', 'images')
                             ->whereHas('branches', function ($query) use ($request) {
                                 $query->where('id', $request->branch);
+                            })->withWhereHas('stocks', function ($query) use ($request) {
+                                $query->where('branch_id', $request->branch);
                             })->get();
 
-            }elseif(isset($request->id) || isset($request->slug)) {
-                $products = Product::with('category', 'images', 'stocks')->where('id', $request->id)->orWhere('slug', $request->slug)->get();
+            }elseif(isset($request->branch) && isset($request->id) || isset($request->slug)) {
+                $products = Product::with('category', 'images')
+                            ->where('id', $request->id)
+                            ->orWhere('slug', $request->slug)
+                            ->withWhereHas('stocks', function ($query) use ($request) {
+                                $query->where('branch_id', $request->branch);
+                            })->get();
             }else {
-                $products = Product::with('category', 'images', 'stocks')->get();
+                $products = Product::with('category', 'images')
+                            ->withWhereHas('stocks', function ($query) use ($request) {
+                                $query->where('branch_id', $request->branch);
+                            })->get();
             }
 
             return response()->json([
@@ -42,11 +52,13 @@ class ProductController extends Controller
     public function byCategory(Request $request)
     {
         try{
-            $products = Product::with('category', 'images', 'stocks')
+            $products = Product::with('category', 'images')
                             ->whereHas('branches', function ($query) use ($request) {
                                 $query->where('id', $request->branch);
                             })->WhereHas('category', function ($query) use ($request) {
                                 $query->where('slug', $request->slug);
+                            })->withWhereHas('stocks', function ($query) use ($request) {
+                                $query->where('branch_id', $request->branch);
                             })->get();
 
             return response()->json([

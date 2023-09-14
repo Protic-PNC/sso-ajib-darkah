@@ -68,7 +68,7 @@ class AddProduct extends Component
             $image['image']->storeAs('public/product', $imageName);
 
             $product->images()->create([
-                'image' => 'product/'.$imageName
+                'image' => env('APP_URL').'/storage/product/'.$imageName
             ]);
         }
 
