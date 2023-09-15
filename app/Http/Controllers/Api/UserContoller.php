@@ -29,7 +29,8 @@ class UserContoller extends Controller
     {
         try{
             if($request->id){
-                $user = User::with('roles', 'branches')->where('id', $request->id)->first();
+                $user = User::with('roles', 'branches')
+                        ->where('id', $request->id)->first();
             }else{
                 $user = User::with('roles', 'branches')->get();
             }
