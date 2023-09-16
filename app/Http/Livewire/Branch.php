@@ -54,13 +54,21 @@ class Branch extends Component
 
         $branch = ModelsBranch::find($id);
 
-        $branch->products()->sync($this->productSelected);
-
         if ($branch) {
             $branch->update([
                 'code' => $this->code,
                 'name' => $this->name,
             ]);
+
+            $branch->products()->sync($this->productSelected);
+
+            foreach ($this->productSelected as $product) {
+                $stock = Stock::firstOrCreate([
+                    'branch_id' => $branch->id,
+                    'product_id' => $product,
+                    'quantity' => 0
+                ]);
+            }
 
             $this->notification()->success(
                 $title = 'Berhasil',
