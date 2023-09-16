@@ -78,7 +78,7 @@ class AddProduct extends Component
                 $description = 'Data berhasil dibuat'
             );
 
-            $this->reset('name', 'description', 'price', 'category');
+            $this->reset('name', 'description', 'price', 'category', 'images');
             $this->emit('refresh');
             $this->openModal = false;
         }

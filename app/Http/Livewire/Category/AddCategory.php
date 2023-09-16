@@ -74,7 +74,7 @@ class AddCategory extends Component
                 $description = 'Data berhasil dibuat'
             );
 
-            $this->reset('name');
+            $this->reset('name', 'images');
             $this->emit('refresh');
             $this->openModal = false;
         }
