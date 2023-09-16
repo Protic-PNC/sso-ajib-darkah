@@ -46,6 +46,9 @@ main() {
     php artisan optimize --no-ansi --no-interaction
     php artisan view:cache --no-ansi --no-interaction
 
+    log "Updates composer dependencies..."
+    composer update --no-interaction --prefer-dist --optimize-autoloader
+
     log "Restoring app..."
     php artisan up --no-ansi --no-interaction
 
