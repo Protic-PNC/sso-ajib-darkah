@@ -62,13 +62,13 @@ class Branch extends Component
 
             $branch->products()->sync($this->productSelected);
 
-            foreach ($this->productSelected as $product) {
-                $stock = Stock::firstOrCreate([
-                    'branch_id' => $branch->id,
-                    'product_id' => $product,
-                    'quantity' => 0
-                ]);
-            }
+            // foreach ($this->productSelected as $product) {
+            //     $stock = Stock::firstOrCreate([
+            //         'branch_id' => $branch->id,
+            //         'product_id' => $product,
+            //         'quantity' => 0
+            //     ]);
+            // }
 
             $this->notification()->success(
                 $title = 'Berhasil',
