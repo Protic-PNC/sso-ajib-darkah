@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Branch;
 use App\Models\Category;
 
 class ProductController extends Controller
@@ -15,7 +16,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         try{
-            if (isset($request->branch)) {
+            if (isset($request->branch) && !isset($request->id) && !isset($request->slug)) {
                 $products = Product::with('category', 'images')
                             ->whereHas('branches', function ($query) use ($request) {
                                 $query->where('id', $request->branch);
@@ -24,11 +25,17 @@ class ProductController extends Controller
                             })->get();
 
             }elseif(isset($request->branch) && isset($request->id) || isset($request->slug)) {
+
                 $products = Product::with('category', 'images')
                             ->where('id', $request->id)
-                            ->orWhere('slug', $request->slug)
-                            ->withWhereHas('stocks', function ($query) use ($request) {
-                                $query->where('branch_id', $request->branch);
+                            ->orWhere('slug', $request->slug);
+
+                $request = $request->all();
+                $request['product_id'] = $products->first()->id;
+
+                $products = $products->withWhereHas('stocks', function ($query) use ($request) {
+                                $query->where('branch_id', $request['branch'])
+                                    ->where('product_id', $request['product_id']);
                             })->get();
             }else {
                 $products = Product::with('category', 'images')
