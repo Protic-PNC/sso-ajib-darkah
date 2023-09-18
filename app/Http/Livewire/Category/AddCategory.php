@@ -61,10 +61,10 @@ class AddCategory extends Component
 
         foreach ($this->images as $image) {
             $imageName = Str::random(20) . '.' . $image['image']->getClientOriginalExtension();
-            $image['image']->storeAs('public/category', $imageName);
+            $image['image']->storeAs('public/images', $imageName);
 
             $category->images()->create([
-                'image' => env('APP_URL').'/storage/category/'.$imageName
+                'image' => env('APP_URL').'/storage/images/'.$imageName
             ]);
         }
 

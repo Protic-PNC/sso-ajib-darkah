@@ -65,10 +65,10 @@ class AddProduct extends Component
 
         foreach ($this->images as $image) {
             $imageName = Str::random(20) . '.' . $image['image']->getClientOriginalExtension();
-            $image['image']->storeAs('public/product', $imageName);
+            $image['image']->storeAs('public/images', $imageName);
 
             $product->images()->create([
-                'image' => env('APP_URL').'/storage/product/'.$imageName
+                'image' => env('APP_URL').'/storage/images/'.$imageName
             ]);
         }
 

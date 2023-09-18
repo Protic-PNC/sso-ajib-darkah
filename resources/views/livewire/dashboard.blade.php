@@ -7,7 +7,7 @@
                 <div class="flex flex-row -mx-3">
                   <div class="flex-none w-2/3 max-w-full px-3">
                     <div>
-                      <p class="mb-0 font-sans font-semibold leading-normal text-sm">Today's Money</p>
+                      <p class="mb-0 font-sans font-semibold leading-normal text-sm">Pendapatan Hari ini</p>
                       <h5 class="mb-0 font-bold">
                         $53,000
                         <span class="leading-normal text-sm font-weight-bolder text-lime-500">+55%</span>
@@ -31,7 +31,7 @@
                 <div class="flex flex-row -mx-3">
                   <div class="flex-none w-2/3 max-w-full px-3">
                     <div>
-                      <p class="mb-0 font-sans font-semibold leading-normal text-sm">Today's Users</p>
+                      <p class="mb-0 font-sans font-semibold leading-normal text-sm">Pesanan Hari ini</p>
                       <h5 class="mb-0 font-bold">
                         2,300
                         <span class="leading-normal text-sm font-weight-bolder text-lime-500">+3%</span>

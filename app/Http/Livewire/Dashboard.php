@@ -8,8 +8,8 @@ use Asantibanez\LivewireCharts\Facades\LivewireCharts;
 
 class Dashboard extends Component
 {
-    public $showDataLabels = true;
-    public $firstRun = true;
+    public $showDataLabels = false;
+    public $firstRun = false;
 
     public function render()
     {
