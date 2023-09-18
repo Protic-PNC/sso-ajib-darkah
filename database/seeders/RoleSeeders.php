@@ -34,10 +34,12 @@ class RoleSeeders extends Seeder
             'password' => Hash::make('12345678') // Ubah 'password' dengan password yang Anda inginkan
         ]);
 
+        $SuperAdminRole = Role::create(['name' => 'Super Admin']);
         $adminRole = Role::create(['name' => 'admin']);
         $pegawaiRole = Role::create(['name' => 'pegawai']);
         $pengantarRole = Role::create(['name' => 'pengantar']);
 
+        $admin->assignRole('Super Admin');
         $admin->assignRole('admin');
         $pegawai->assignRole('pegawai');
         $pengantar->assignRole('pengantar');

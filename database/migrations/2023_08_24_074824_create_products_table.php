@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug');
             $table->text('description');
-            $table->decimal('harga', 10, 2);
+            $table->decimal('harga', 10, 0);
             $table->foreignIdFor(Category::class)->constrained('categories')->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });

@@ -52,6 +52,9 @@
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {{ $loop->iteration }}
                     </th>
+                    <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                        <img src="{{ $category->images->first()->image }}" class="w-16" alt="">
+                    </td>
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {{ $category->name }}
                     </th>

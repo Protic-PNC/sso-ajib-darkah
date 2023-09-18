@@ -62,7 +62,7 @@
                         {{ $product->name }}
                     </td>
                     <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                        {{ $product->harga }}
+                        {{ number_format($product->harga, 0, ',', '.') }}
                     </td>
                     <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
                         {{ $product->category->name }}
